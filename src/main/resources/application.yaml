@@ -1,0 +1,41 @@
+server:
+  port: 8007
+
+spring:
+  application:
+    name: game-page-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/wx_service?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+#mybatis配置
+mybatis-plus:
+  global-config:
+    db-config:
+      table-underline: true # 数据库表名采用下划线命名与实体类匹配默认true
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false # 数据库表字段采用下划线命名与实体类匹配默认true
+
+#配置日志
+logging:
+  config: classpath:log4j2-test.xml
+# 接口前缀配置
+api:
+  prefix:
+    v1: /api/wx/v1
+
